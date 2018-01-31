@@ -1,0 +1,8 @@
+thead tr, thead th {
+    color: white;
+    background-color: rgb(54, 75, 90) !important;
+    border: 1px solid #e2e3e3;
+}
+.btn{
+    /*margin-top: 20px;*/
+}
