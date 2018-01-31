@@ -6,3 +6,6 @@ thead tr, thead th {
 .btn{
     /*margin-top: 20px;*/
 }
+.modal-content{
+    min-height: 450px;
+}

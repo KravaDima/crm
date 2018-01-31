@@ -292,11 +292,36 @@ function addProductIncomingOrder(id)
             alert("Ошибка при добавлении товара в приходную накладную");
         },
         success: function (data) {
-
-            updateProductsListInModal(data);
+            updateInvoice(data);
         }
     });
 }
+
+/**
+ * Обновление списка товаров в таблице приходной накладной
+ */
+function updateInvoice(data)
+{
+    $('#invoice-tab').empty();
+    // console.log(data);
+    $.each(data, function(i, item) {
+
+        var stringTab = '<tr>'
+            + '<td>' + item.id + '</td>'
+            + '<td>' + item.relation_product.name + '</td>'
+            + '<td>' + item.quantity + '</td>'
+            + '<td>' + item.price + '</td>'
+            + '<td class="text-center">'
+            + '<a href="#" onclick="addProductIncomingOrder( ' + item.id + ')">'
+            + '<i class="fa fa-plus fa-lg"></i>'
+            + '</a>'
+            + '</td>'
+            + '</tr>';
+
+        $('#invoice-tab').append(stringTab);
+    });
+}
+
 
 
 

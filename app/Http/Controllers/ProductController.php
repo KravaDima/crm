@@ -111,13 +111,20 @@ class ProductController extends Controller
 
         if($order_id) {
             $order = IncomingPaymentOrder::find($order_id);
-//            $order->relationInvoiceIncoming;
-            foreach($order->relationInvoiceIncoming as $product){
-                if($product->id == $product_id){
-
+            $invoice = $order->relationInvoiceIncoming;
+            if(empty($items = $invoice->where('product_id', $product_id))) {
+                foreach ($items as $item) {
+                    $item->relationProduct;
+                    $item->quantity++;
+                    $item->save();
                 }
-                dump($product->relationProduct->name);
+            } else {
+                dump('Товара нет в инвойсе!');
             }
+            foreach ($invoice as $item) {
+                $item->relationProduct;
+            }
+            return $order->relationInvoiceIncoming;
 
         } else {
             $order = new IncomingPaymentOrder();
@@ -127,8 +134,8 @@ class ProductController extends Controller
         }
         $order->save();
 
-        $invoice = IncomingInvoice::all()->where('incoming_payment_order_id', $order_id);
-        dump($invoice);
+//        $invoice = IncomingInvoice::all()->where('incoming_payment_order_id', $order_id);
+//        dump($invoice);
 
 
     }

@@ -9,7 +9,7 @@ class IncomingInvoice extends Model
     /*Имя таблицы в Базе Данных*/
     protected $table = 'incoming_invoices';
 
-//    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = ['*'];
 

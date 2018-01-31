@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Янв 29 2018 г., 08:31
+-- Время создания: Янв 31 2018 г., 08:25
 -- Версия сервера: 5.6.37
 -- Версия PHP: 5.6.31
 
@@ -48,6 +48,28 @@ INSERT INTO `counterparties` (`id`, `type`, `name`, `tel`, `email`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `incoming_invoices`
+--
+
+CREATE TABLE `incoming_invoices` (
+  `id` int(11) NOT NULL,
+  `incoming_payment_order_id` int(11) NOT NULL COMMENT 'Id приходного ордера',
+  `product_id` int(11) NOT NULL COMMENT 'id товара',
+  `price` int(11) NOT NULL COMMENT 'Цена товара на момент создания накладной',
+  `quantuty` int(11) NOT NULL COMMENT 'Количество товара'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `incoming_invoices`
+--
+
+INSERT INTO `incoming_invoices` (`id`, `incoming_payment_order_id`, `product_id`, `price`, `quantuty`) VALUES
+(1, 1, 21, 20, 2),
+(2, 1, 27, 20, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `incoming_payment_orders`
 --
 
@@ -56,9 +78,17 @@ CREATE TABLE `incoming_payment_orders` (
   `counterparty_id` int(11) NOT NULL COMMENT 'контрагент',
   `number` varchar(255) NOT NULL COMMENT 'номер накладной',
   `sum` int(11) NOT NULL COMMENT 'сумма накладной',
+  `quantity` int(11) NOT NULL,
   `updated_at` date DEFAULT NULL,
   `created_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `incoming_payment_orders`
+--
+
+INSERT INTO `incoming_payment_orders` (`id`, `counterparty_id`, `number`, `sum`, `quantity`, `updated_at`, `created_at`) VALUES
+(1, 2, '11', 100, 2, '2018-01-30', '2018-01-30');
 
 -- --------------------------------------------------------
 
@@ -144,6 +174,12 @@ ALTER TABLE `counterparties`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `incoming_invoices`
+--
+ALTER TABLE `incoming_invoices`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `incoming_payment_orders`
 --
 ALTER TABLE `incoming_payment_orders`
@@ -183,10 +219,15 @@ ALTER TABLE `users`
 ALTER TABLE `counterparties`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT для таблицы `incoming_invoices`
+--
+ALTER TABLE `incoming_invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT для таблицы `incoming_payment_orders`
 --
 ALTER TABLE `incoming_payment_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `migrations`
 --

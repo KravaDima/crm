@@ -105,7 +105,7 @@
                             <th style="width: 50px;">Действия</th>
                         </tr>
                         </thead>
-                        <tbody id="all-product-tab" class="">
+                        <tbody id="invoice-tab" class="">
                         {{--@foreach($orders as $order)
                             <tr>
                                 <td>{{ $order['id'] }}</td>
